@@ -1,39 +1,23 @@
-import static java.util.Objects.hash;
-
 class MyHashMap {
     
-    private Node[] table;
-    
-    class Node {
-        final int hashed;
-        final int key;
-        final int value;
-        
-        public Node(int hashed, int key, int value) {
-            this.hashed = hashed;
-            this.key = key;
-            this.value = value;
-        }
-    }
+    private int[] table;
 
     public MyHashMap() {
-        this.table = new Node[10000000];
+        this.table = new int[10000000];
+        Arrays.fill(table, -1);
     }
     
     public void put(int key, int value) {
-        int hashedKey = hash(key);
-        table[hashedKey] = new Node(hashedKey, key, value);
+        table[key] = value;
     }
     
     public int get(int key) {
-        int hashedKey = hash(key);
-        Node val = table[hashedKey];
-        return val == null ? -1 : val.value;
+        if (table[key] != -1) return table[key];
+        else return -1;
     }
     
     public void remove(int key) {
-        int hashedKey = hash(key);
-        table[hashedKey] = null;
+        table[key] = -1;
     }
 }
 
